@@ -1,15 +1,9 @@
 # OptiRoute: Delivery Route Optimization System (Node.js & Express.js)
 ### Powered by Computational Geometry & TSP Approximation Metaheuristics
 
-![OptiRoute Banner](https://img.shields.io/badge/OptiRoute-v2.4%20Node.js-blue?style=for-the-badge&logo=nodedotjs)
-![License](https://img.shields.io/badge/License-Academic%2FOpen-green?style=for-the-badge)
-![Node.js](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=for-the-badge&logo=nodedotjs)
-![Express.js](https://img.shields.io/badge/Express.js-4.x-black?style=for-the-badge&logo=express)
-![Leaflet](https://img.shields.io/badge/Leaflet-v1.9-emerald?style=for-the-badge&logo=leaflet)
-
 ---
 
-## 📌 1. Project Overview & Description
+## 1. Project Overview & Description
 
 **OptiRoute** is a comprehensive, web-based delivery route optimization system designed for last-mile logistics dispatchers. Given a central warehouse depot and multiple customer delivery destinations, the system determines the most efficient visiting order using **Computational Geometry** and **TSP-based Approximation Algorithms**.
 
@@ -23,7 +17,7 @@ This version (`Opti_route2.0.2`) provides a **high-performance JavaScript / Node
 
 ---
 
-## 🔬 2. Grounded in Published Research
+## 2. Grounded in Published Research
 
 This implementation realizes the algorithmic principles and benchmarking parameters presented in:
 
@@ -40,7 +34,7 @@ This implementation realizes the algorithmic principles and benchmarking paramet
 
 ---
 
-## 📁 3. Project Directory Structure
+## 3. Project Directory Structure
 
 ```
 Opti_route2.0.2/
@@ -73,7 +67,7 @@ Opti_route2.0.2/
 
 ---
 
-## 🚀 4. How to Run Locally
+## 4. How to Run Locally
 
 ### Prerequisites
 - **Node.js** (v18.0.0 or higher recommended)
@@ -108,7 +102,7 @@ http://127.0.0.1:5000
 
 ---
 
-## 📡 5. REST API Reference
+## 5. REST API Reference
 
 | Endpoint | Method | Description |
 |---|---|---|
