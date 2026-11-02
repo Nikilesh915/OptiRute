@@ -1,0 +1,29 @@
+{
+  "name": "optiroute-node-backend",
+  "version": "2.4.0",
+  "description": "Delivery Route Optimization System Backend in Node.js and Express.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test_api.js"
+  },
+  "keywords": [
+    "route-optimization",
+    "tsp",
+    "express",
+    "nodejs",
+    "simulated-annealing",
+    "ant-colony",
+    "genetic-algorithm",
+    "two-opt",
+    "computational-geometry"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}

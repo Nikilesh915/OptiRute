@@ -1,0 +1,128 @@
+{
+  "presets": [
+    {
+      "id": "chennai",
+      "name": "Chennai Metropolis (Central Hub)",
+      "description": "Urban logistics hub across Central Chennai, Guindy, Anna Nagar, and Royapuram.",
+      "depot": {
+        "id": "depot-chennai",
+        "name": "Central Logistics Hub (Warehouse)",
+        "lat": 13.0827,
+        "lng": 80.2707,
+        "traffic": "low",
+        "road_condition": "paved"
+      },
+      "stops": [
+        {"id": "chn-1", "name": "Guindy Industrial Park", "lat": 13.0102, "lng": 80.2157, "traffic": "medium", "road_condition": "paved"},
+        {"id": "chn-2", "name": "Anna Nagar Supercenter", "lat": 13.0850, "lng": 80.2101, "traffic": "medium", "road_condition": "paved"},
+        {"id": "chn-3", "name": "Royapuram Express", "lat": 13.1147, "lng": 80.2872, "traffic": "low", "road_condition": "paved"},
+        {"id": "chn-4", "name": "T. Nagar Retail Hub", "lat": 13.0418, "lng": 80.2341, "traffic": "heavy", "road_condition": "urban"},
+        {"id": "chn-5", "name": "Mylapore Distribution Point", "lat": 13.0368, "lng": 80.2676, "traffic": "medium", "road_condition": "urban"},
+        {"id": "chn-6", "name": "Nungambakkam Commercial Centre", "lat": 13.0595, "lng": 80.2435, "traffic": "medium", "road_condition": "paved"}
+      ]
+    },
+    {
+      "id": "vizag",
+      "name": "Visakhapatnam (Paper Origin City)",
+      "description": "Port & coastal city delivery logistics based on the research paper author institution (VIIT Visakhapatnam).",
+      "depot": {
+        "id": "depot-vizag",
+        "name": "Central Logistics Depot (Duvvada)",
+        "lat": 17.7089,
+        "lng": 83.1517,
+        "traffic": "low",
+        "road_condition": "paved"
+      },
+      "stops": [
+        {"id": "stop-1", "name": "Gajuwaka Industrial Hub", "lat": 17.6904, "lng": 83.2185, "traffic": "heavy", "road_condition": "urban"},
+        {"id": "stop-2", "name": "NAD Kotha Road Junction", "lat": 17.7423, "lng": 83.2294, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "stop-3", "name": "Dwaraka RTC Complex", "lat": 17.7289, "lng": 83.3056, "traffic": "severe", "road_condition": "urban"},
+        {"id": "stop-4", "name": "Siripuram Commercial Square", "lat": 17.7215, "lng": 83.3188, "traffic": "medium", "road_condition": "paved"},
+        {"id": "stop-5", "name": "RK Beach Promenade Drop", "lat": 17.7126, "lng": 83.3242, "traffic": "low", "road_condition": "paved"},
+        {"id": "stop-6", "name": "MVP Colony Sector 3", "lat": 17.7410, "lng": 83.3370, "traffic": "medium", "road_condition": "urban"},
+        {"id": "stop-7", "name": "Rushikonda IT SEZ", "lat": 17.7834, "lng": 83.3854, "traffic": "low", "road_condition": "paved"},
+        {"id": "stop-8", "name": "Madhurawada Tech Park", "lat": 17.8189, "lng": 83.3486, "traffic": "medium", "road_condition": "paved"},
+        {"id": "stop-9", "name": "Simhachalam Temple Foothills", "lat": 17.7663, "lng": 83.2505, "traffic": "medium", "road_condition": "rough"},
+        {"id": "stop-10", "name": "Pendurthi Freight Center", "lat": 17.8340, "lng": 83.1970, "traffic": "low", "road_condition": "urban"},
+        {"id": "stop-11", "name": "Kurmannapalem Junction", "lat": 17.6740, "lng": 83.1610, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "stop-12", "name": "Scindia Sea Harbour Gate", "lat": 17.6830, "lng": 83.2840, "traffic": "heavy", "road_condition": "rough"}
+      ]
+    },
+    {
+      "id": "hyderabad",
+      "name": "Hyderabad Cyber Hub",
+      "description": "High-density tech corridor delivery across Hitec City, Gachibowli, Banjara Hills, and Secunderabad.",
+      "depot": {
+        "id": "depot-hyd",
+        "name": "Kondapur Fulfilment Center",
+        "lat": 17.4699,
+        "lng": 78.3578,
+        "traffic": "medium",
+        "road_condition": "paved"
+      },
+      "stops": [
+        {"id": "hyd-1", "name": "Hitec City Cyber Towers", "lat": 17.4504, "lng": 78.3808, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "hyd-2", "name": "Gachibowli Financial District", "lat": 17.4192, "lng": 78.3489, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "hyd-3", "name": "Jubilee Hills Check Post", "lat": 17.4325, "lng": 78.4071, "traffic": "medium", "road_condition": "paved"},
+        {"id": "hyd-4", "name": "Banjara Hills Road No 12", "lat": 17.4156, "lng": 78.4350, "traffic": "severe", "road_condition": "urban"},
+        {"id": "hyd-5", "name": "Begumpet Airport Road", "lat": 17.4448, "lng": 78.4682, "traffic": "medium", "road_condition": "paved"},
+        {"id": "hyd-6", "name": "Secunderabad Railway Hub", "lat": 17.4399, "lng": 78.4983, "traffic": "severe", "road_condition": "urban"},
+        {"id": "hyd-7", "name": "Charminar Old Heritage Market", "lat": 17.3616, "lng": 78.4747, "traffic": "severe", "road_condition": "rough"},
+        {"id": "hyd-8", "name": "Kukatpally Housing Board", "lat": 17.4938, "lng": 78.3995, "traffic": "heavy", "road_condition": "urban"},
+        {"id": "hyd-9", "name": "Miyapur Metro Terminal", "lat": 17.4968, "lng": 78.3556, "traffic": "medium", "road_condition": "paved"}
+      ]
+    },
+    {
+      "id": "bengaluru",
+      "name": "Bengaluru E-Commerce Express",
+      "description": "Challenging traffic distribution across tech hubs with high congestion variance.",
+      "depot": {
+        "id": "depot-blr",
+        "name": "Koramangala Master Warehouse",
+        "lat": 12.9352,
+        "lng": 77.6245,
+        "traffic": "heavy",
+        "road_condition": "paved"
+      },
+      "stops": [
+        {"id": "blr-1", "name": "Indiranagar 100ft Road", "lat": 12.9719, "lng": 77.6412, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "blr-2", "name": "MG Road Retail Zone", "lat": 12.9756, "lng": 77.6066, "traffic": "severe", "road_condition": "urban"},
+        {"id": "blr-3", "name": "HSR Layout Sector 1", "lat": 12.9116, "lng": 77.6474, "traffic": "medium", "road_condition": "paved"},
+        {"id": "blr-4", "name": "Electronic City Phase 1", "lat": 12.8399, "lng": 77.6770, "traffic": "medium", "road_condition": "paved"},
+        {"id": "blr-5", "name": "Bellandur Outer Ring Road", "lat": 12.9260, "lng": 77.6762, "traffic": "severe", "road_condition": "urban"},
+        {"id": "blr-6", "name": "Marathahalli Multiplex", "lat": 12.9591, "lng": 77.6974, "traffic": "heavy", "road_condition": "rough"},
+        {"id": "blr-7", "name": "Whitefield ITPL Gateway", "lat": 12.9863, "lng": 77.7308, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "blr-8", "name": "JP Nagar 6th Phase", "lat": 12.9063, "lng": 77.5857, "traffic": "low", "road_condition": "urban"}
+      ]
+    },
+    {
+      "id": "paper_benchmark_15",
+      "name": "Research Benchmark (N = 15 Cities)",
+      "description": "Synthesized benchmark dataset recreating the N=15 test instances evaluated in the published IEEE paper.",
+      "depot": {
+        "id": "bench-depot",
+        "name": "Benchmark Depot 0",
+        "lat": 13.0000,
+        "lng": 80.0000,
+        "traffic": "low",
+        "road_condition": "paved"
+      },
+      "stops": [
+        {"id": "c1", "name": "Node 1", "lat": 13.0827, "lng": 80.2707, "traffic": "medium", "road_condition": "paved"},
+        {"id": "c2", "name": "Node 2", "lat": 13.0450, "lng": 80.2010, "traffic": "low", "road_condition": "paved"},
+        {"id": "c3", "name": "Node 3", "lat": 12.9850, "lng": 80.2210, "traffic": "heavy", "road_condition": "urban"},
+        {"id": "c4", "name": "Node 4", "lat": 12.9230, "lng": 80.1420, "traffic": "medium", "road_condition": "paved"},
+        {"id": "c5", "name": "Node 5", "lat": 13.0110, "lng": 80.0890, "traffic": "low", "road_condition": "rough"},
+        {"id": "c6", "name": "Node 6", "lat": 13.1120, "lng": 80.1450, "traffic": "medium", "road_condition": "paved"},
+        {"id": "c7", "name": "Node 7", "lat": 13.1670, "lng": 80.2100, "traffic": "low", "road_condition": "paved"},
+        {"id": "c8", "name": "Node 8", "lat": 13.0720, "lng": 80.1200, "traffic": "heavy", "road_condition": "urban"},
+        {"id": "c9", "name": "Node 9", "lat": 12.9600, "lng": 80.0500, "traffic": "low", "road_condition": "paved"},
+        {"id": "c10", "name": "Node 10", "lat": 12.8900, "lng": 80.1900, "traffic": "medium", "road_condition": "paved"},
+        {"id": "c11", "name": "Node 11", "lat": 13.1900, "lng": 80.2800, "traffic": "low", "road_condition": "paved"},
+        {"id": "c12", "name": "Node 12", "lat": 13.1300, "lng": 80.3100, "traffic": "medium", "road_condition": "urban"},
+        {"id": "c13", "name": "Node 13", "lat": 13.0200, "lng": 80.2500, "traffic": "heavy", "road_condition": "paved"},
+        {"id": "c14", "name": "Node 14", "lat": 12.8500, "lng": 80.0900, "traffic": "low", "road_condition": "paved"}
+      ]
+    }
+  ]
+}

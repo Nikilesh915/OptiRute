@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptiRoute | Delivery Route Optimization System</title>
+  <meta name="description"
+    content="Delivery Route Optimization system using Simulated Annealing, Genetic Algorithm, and Ant Colony Optimization.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-layer-group"></i>
+      </div>
+      <div class="brand-text">
+        <h1 class="brand-title">OptiRoute</h1>
+        <p class="brand-subtitle">Delivery Route Optimization system</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="btnSamplePresets" class="btn btn-outline-subtle" title="Load sample city scenarios">
+        Sample Presets
+      </button>
+      <button id="btnClearAll" class="btn btn-clear-all" title="Clear all stops">
+        <i class="fa-regular fa-trash-can"></i> Clear All
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar-panel">
+
+      <!-- Section 2: Manual Coordinate Input -->
+      <section class="sidebar-section">
+        <h2 class="section-heading">1. MANUAL COORDINATE INPUT</h2>
+
+        <form id="formAddCoord" class="coord-form" onsubmit="return false;">
+          <div class="form-row-2col">
+            <div class="form-field">
+              <label for="inputLat">Latitude</label>
+              <input type="number" step="any" id="inputLat" class="form-control" placeholder="e.g. 13.0827" required>
+            </div>
+            <div class="form-field">
+              <label for="inputLng">Longitude</label>
+              <input type="number" step="any" id="inputLng" class="form-control" placeholder="e.g. 80.2707" required>
+            </div>
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-field">
+              <label for="inputLabel">Label / Address (Optional)</label>
+              <input type="text" id="inputLabel" class="form-control" placeholder="e.g. Stop Alpha / Customer">
+            </div>
+            <div class="form-field">
+              <label for="selectPointType">Point Type</label>
+              <select id="selectPointType" class="form-control">
+                <option value="stop" selected>Delivery Stop</option>
+                <option value="warehouse">Warehouse</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" id="btnAddCoordinate" class="btn btn-add-coord">
+            <i class="fa-regular fa-circle-plus"></i> Add Coordinate Point
+          </button>
+        </form>
+      </section>
+
+      <!-- Section 3: Configured Locations -->
+      <section class="sidebar-section">
+        <h2 class="section-heading" id="configuredHeader">2. CONFIGURED LOCATIONS (7)</h2>
+
+        <!-- Warehouse Card -->
+        <div class="warehouse-card">
+          <div class="warehouse-tag">WAREHOUSE (START/END)</div>
+          <div class="warehouse-name" id="depotName">Central Logistics Hub (Warehouse)</div>
+          <div class="warehouse-coords" id="depotCoords">13.0827, 80.2707</div>
+        </div>
+
+        <!-- Stops Header -->
+        <div class="stops-subheader">
+          <span class="stops-title" id="stopsSubheaderText">Delivery Stops (6)</span>
+          <span class="stops-requirement">Min 1 required</span>
+        </div>
+
+        <!-- Scrollable Stops List -->
+        <div class="stops-scroll-container" id="stopsContainer">
+          <!-- Dynamically populated stops -->
+        </div>
+      </section>
+
+      <!-- Section 4: Optimization Engine -->
+      <section class="sidebar-section section-opt-engine">
+        <h2 class="section-heading">3. OPTIMIZATION ENGINE</h2>
+        <div class="opt-engine-box">
+          <label for="selectAlgorithm" class="opt-label">Choose Algorithm</label>
+          <select id="selectAlgorithm" class="form-control select-algo">
+            <option value="all3" selected>Compare All 3 Algorithms (Recommended)</option>
+            <option value="sa">Simulated Annealing</option>
+            <option value="ga">Genetic Algorithm</option>
+            <option value="aco">Ant Colony Optimization</option>
+            <option value="all">Compare All (including 2-Opt & Held-Karp)</option>
+          </select>
+
+          <button id="btnOptimize" class="btn btn-primary-optimize">
+            <i class="fa-solid fa-play"></i> Optimize Delivery Route
+          </button>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Right Workspace Area -->
+    <section class="workspace-panel">
+
+      <!-- Top Half: Map -->
+      <div class="map-section">
+        <div id="map" class="map-view"></div>
+
+        <!-- Floating Map Overlay (Top-Left) -->
+        <div class="map-floating-bar" id="mapFloatingBar">
+          <span class="status-indicator-dot" style="background: #94a3b8;"></span>
+          <span id="mapRouteStatusText" class="map-route-text">Ready. Click 'Optimize Delivery Route' to begin.</span>
+          <button id="btnRecenter" class="btn btn-recenter">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Recenter
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Half: Results Dashboard -->
+      <div class="results-dashboard" id="resultsDashboard">
+
+        <!-- Header Bar -->
+        <div class="results-header-bar">
+          <div class="results-header-left">
+            <span class="winner-pill" id="winnerPill" style="background: #e2e8f0; color: #475569;">Ready to
+              Optimize</span>
+            <span class="route-summary-headline" id="routeSummaryHeadline">Awaiting Optimization</span>
+          </div>
+          <button id="btnToggleDashboard" class="btn-toggle-dash" title="Toggle Results View">
+            <i class="fa-solid fa-chevron-up"></i>
+          </button>
+        </div>
+
+        <!-- Collapsible Results Content -->
+        <div class="results-collapsible-body" id="resultsBody">
+
+          <!-- 4 KPI Metrics Cards -->
+          <div class="kpi-cards-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">BEST TOTAL DISTANCE</div>
+              <div class="kpi-value" id="kpiBestDistance">-- <span class="unit">km</span></div>
+              <div class="kpi-desc">Round-trip total</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">BEST EXECUTION TIME</div>
+              <div class="kpi-value" id="kpiBestTime">-- <span class="unit">ms</span></div>
+              <div class="kpi-desc">Algorithm runtime</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">WINNING ALGORITHM</div>
+              <div class="kpi-value kpi-algo-name" id="kpiWinningAlgo">--</div>
+              <div class="kpi-desc">Shortest distance</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">TOTAL DELIVERY STOPS</div>
+              <div class="kpi-value" id="kpiTotalStops">6 Stops</div>
+              <div class="kpi-desc">Locations visited</div>
+            </div>
+          </div>
+
+          <!-- Section: Optimized Stop Order & Delivery Sequence -->
+          <div class="itinerary-section" id="itinerarySection" style="display: none;">
+            <div class="itinerary-card">
+              <div class="itinerary-header">
+                <div class="itinerary-header-left">
+                  <span class="itinerary-tag"><i class="fa-solid fa-route"></i> STOP ORDER</span>
+                  <span class="itinerary-title">OPTIMIZED DELIVERY SEQUENCE</span>
+                </div>
+                <div class="itinerary-stats-pill" id="itineraryStatsPill"></div>
+              </div>
+
+              <!-- Horizontal Sequence Flow -->
+              <div class="itinerary-sequence-scroll" id="itinerarySequenceScroll">
+                <!-- Populated dynamically -->
+              </div>
+
+              <!-- Toggle Leg Breakdown -->
+              <div class="itinerary-details-toggle" id="itineraryToggleDetails">
+                <span><i class="fa-solid fa-list-ol"></i> Step-by-Step Leg Breakdown (<span id="itineraryLegsCount">0</span> Legs)</span>
+                <span class="toggle-action-text"><span id="itineraryToggleText">Show Details</span> <i class="fa-solid fa-chevron-down" id="itineraryToggleIcon"></i></span>
+              </div>
+
+              <div class="itinerary-legs-table-wrapper" id="itineraryLegsTableWrapper" style="display: none;">
+                <table class="itinerary-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 55px;">Step</th>
+                      <th>From (Origin)</th>
+                      <th style="width: 25px; text-align: center;"></th>
+                      <th>To (Destination)</th>
+                      <th>Leg Distance</th>
+                      <th>Est. Time</th>
+                      <th>Traffic / Road</th>
+                    </tr>
+                  </thead>
+                  <tbody id="itineraryLegsBody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Analytics: Table & Benchmark Chart -->
+          <div class="analytics-split-grid">
+
+            <!-- Left: Comparison Table -->
+            <div class="analytics-card comparison-card">
+              <h3 class="card-title">ALGORITHM COMPARISON (TSP)</h3>
+              <div class="table-container">
+                <table class="algo-comparison-table">
+                  <thead>
+                    <tr>
+                      <th>Algorithm</th>
+                      <th>Total Distance</th>
+                      <th>Execution Time</th>
+                      <th>Iterations / Gen</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="comparisonTableBody">
+                    <tr>
+                      <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 18px;">
+                        Click "Optimize Delivery Route" to run algorithms and compare performance.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Right: Performance Benchmark Chart -->
+            <div class="analytics-card chart-card">
+              <h3 class="card-title">PERFORMANCE BENCHMARK</h3>
+              <div class="chart-box">
+                <canvas id="performanceChart"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal: Sample Presets Picker -->
+  <div class="modal-backdrop" id="modalPresets">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-city"></i> Select Sample Preset Scenario</h3>
+        <button class="modal-close" id="btnClosePresets">&times;</button>
+      </div>
+      <div class="modal-body" id="presetsListModal">
+        <!-- Preset items populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/static/js/map.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+
+</html>
